@@ -8,8 +8,13 @@ import { NavController, IonicPage } from 'ionic-angular';
 })
 export class HomePage {
 
+  // parametros do construtor são injetados como dependência
   constructor(public navCtrl: NavController) {
 
+  }
+
+  login() {
+    this.navCtrl.setRoot('CategoriasPage')
   }
 
 }
