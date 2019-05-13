@@ -15,7 +15,9 @@ export class HomePage {
   }
 
   login() {
-    this.navCtrl.setRoot('CategoriasPage')
+    console.log('login');
+    this.navCtrl.setRoot('CategoriasPage'); 
+    //this.navCtrl.push('CategoriasPage');
   }
 
   ionViewWillEnter() {
