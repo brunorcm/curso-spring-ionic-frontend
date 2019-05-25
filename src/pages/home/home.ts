@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, IonicPage } from 'ionic-angular';
 import { MenuController } from 'ionic-angular/components/app/menu-controller';
 import { CredenciaisDTO } from '../../models/credenciais.dto';
+import { AuthService } from '../../services/auth.service';
 
 @IonicPage()
 @Component({
@@ -16,16 +17,21 @@ export class HomePage {
   };
 
   // parametros do construtor são injetados como dependência
-  constructor(public navCtrl: NavController, public menu: MenuController) {
+  constructor(public navCtrl: NavController, 
+    public auth: AuthService,
+    public menu: MenuController) {
 
   }
 
   login() {
-    console.log('login');
     console.log(this.creds);
-    this.navCtrl.setRoot('CategoriasPage'); 
-    //this.navCtrl.push('CategoriasPage');
-  }
+    this.auth.authenticate(this.creds)
+      .subscribe(response => {
+        console.log(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});
+   }
 
   ionViewWillEnter() {
     this.menu.swipeEnable(false);
