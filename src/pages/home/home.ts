@@ -42,4 +42,16 @@ export class HomePage {
     this.menu.swipeEnable(true);
   }
 
+  // ao carregar aplicação front end (apos subir) tenta fazer 
+  // o refresh token para nao ser necessario logar novamente
+  ionViewDidEnter() {
+    this.auth.refreshToken()
+      .subscribe(response => {
+        console.log(response.headers.get('Authorization'));
+        this.auth.successfulLogin(response.headers.get('Authorization'));
+        this.navCtrl.setRoot('CategoriasPage');
+      },
+      error => {});
+  }
+
 }
